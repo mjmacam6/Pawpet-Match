@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home_fragment"
+    android:visibility="visible"
+    android:background="#faf7e0">
+
+        <androidx.appcompat.widget.SearchView
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:id="@+id/searchView"
+            app:iconifiedByDefault="false"
+            android:background="@drawable/input_text_view"
+            app:queryHint="Search..."
+            android:focusable="false"
+            app:closeIcon="@drawable/x_copy"
+            app:searchIcon="@drawable/baseline_search"/>
+
+        <GridView
+            android:visibility="visible"
+            android:layout_marginTop="70dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/gridView"
+            android:numColumns="2"/>
+
+
+</RelativeLayout>

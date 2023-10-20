@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MyProject</string>
+    <string name="username">Username</string>
+    <string name="create_account">Create Account</string>
+    <string name="password">Password</string>
+    <string name="textview">TextView</string>
+    <string name="email_address">Email Address</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="confirm">Confirm</string>
+    <string name="register">Register</string>
+    <string name="confirm2">Confirm</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Search">Search</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+    <string name="forget_password" />
+    <string name="forgot_password">Forgot Password</string>
+</resources>

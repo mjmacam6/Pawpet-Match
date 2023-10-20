@@ -1,0 +1,76 @@
+package com.example.myproject
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.RecyclerView
+
+class NotesAdapter(private var notes: List<Note>, context: Context) :
+    RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
+
+    private val db: NotesDataBaseHelper = NotesDataBaseHelper(context)
+
+    class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+            val titleTextView : TextView = itemView.findViewById(R.id.titleTextView)
+            val contextTextView: TextView = itemView.findViewById(R.id.contentTextView)
+            val updateButtonNotes: LinearLayout = itemView.findViewById(R.id.updateButtonNotes)
+            val deleteButtonNotes: ImageView = itemView.findViewById(R.id.deleteButtonNotes)
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false)
+        return NoteViewHolder(view)
+    }
+
+    override fun getItemCount(): Int = notes.size
+
+    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+        val note = notes[position]
+        holder.titleTextView.text = note.title
+        holder.contextTextView.text = note.content
+
+
+        holder.updateButtonNotes.setOnClickListener {
+            val intent = Intent(holder.itemView.context, UpdateNoteActivity::class.java).apply{
+                putExtra("note_id", note.id)
+            }
+            holder.itemView.context.startActivity(intent)
+        }
+
+        holder.deleteButtonNotes.setOnClickListener {
+
+            val builder = AlertDialog.Builder(holder.itemView.context)
+            builder.setCancelable(false)
+            builder.setView(R.layout.progress_layout)
+            val dialog = builder.create()
+            dialog.show()
+
+            Thread {
+                db.deleteNote(note.id)
+
+                Thread.sleep(2000)
+
+                holder.itemView.post {
+                    refreshData(db.getAllNotes("ASC"))
+                    dialog.dismiss()
+                    Toast.makeText(holder.itemView.context, "Note Deleted", Toast.LENGTH_SHORT).show()
+                }
+            }.start()
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun refreshData(newNotes: List<Note>){
+        notes = newNotes
+        notifyDataSetChanged()
+    }
+}
